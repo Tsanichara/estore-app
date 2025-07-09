@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faUserCircle, faHeart, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +10,7 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons';
 })
 export class Header {
   faSearch = faSearch;
-
+  faUserCircle = faUserCircle;
+  faHeart = faHeart;
+  faShoppingCart = faShoppingCart;
 }
