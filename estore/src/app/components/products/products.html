@@ -7,6 +7,12 @@
             <div class="p-4 text-center">
                 <h5 class="font-semibold"><a class="text-black hover:text-black no-underline" href="#">{{product.product_name}}</a></h5>
                 <p class="text-base font-normal mt-1">${{product.price}}</p>
+
+                @if (product.ratings > 0) {
+                <ng-container>
+                    <app-ratings [score]="product.ratings"></app-ratings>
+                </ng-container>
+            }
             </div>
         </div>
 

@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ProductsService } from './products-service';
 import { ProductListItem } from './productsType';
 import { CommonModule } from '@angular/common';
+import { Ratings } from "../ratings/ratings";
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [Ratings],
   templateUrl: './products.html',
   styleUrl: './products.css',
   providers: [ProductsService],
