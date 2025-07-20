@@ -15,11 +15,16 @@ export class Sidenavigation {
   categories: CategoryType[] = [];
 
   constructor(categoryService: Category){
-    this.categories = categoryService.getAllCategories();
+
+    categoryService.getAllCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
   }
 
   getCategories(parent_category_id?: number): CategoryType[] {
-    return this.categories.filter((category) => category.parent_category_id === parent_category_id);
+    return this.categories.filter((category) => 
+      parent_category_id? 
+      category.parent_category_id === parent_category_id : category.parent_category_id === null);
   }
 
 }
