@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { CategoryType } from '../home/types/categoryType';
 import { Category } from '../home/services/category';
+import { CategoriesStoreItem } from '../home/services/categories.storeItem';
 
 @Component({
   selector: 'app-sidenavigation',
@@ -12,17 +13,13 @@ import { Category } from '../home/services/category';
 })
 export class Sidenavigation {
   faAngleDown = faAngleDown;
-  categories: CategoryType[] = [];
+  
+  private categoryStore = inject(CategoriesStoreItem);
 
-  constructor(categoryService: Category){
-
-    categoryService.getAllCategories().subscribe((categories) => {
-      this.categories = categories;
-    });
-  }
+  readonly categories = this.categoryStore.categories;
 
   getCategories(parent_category_id?: number): CategoryType[] {
-    return this.categories.filter((category) => 
+    return this.categories().filter((category) => 
       parent_category_id? 
       category.parent_category_id === parent_category_id : category.parent_category_id === null);
   }

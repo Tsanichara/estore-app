@@ -7,7 +7,7 @@
             </a>
         </li>
 
-        @for (category of categories; track category.id) {
+        @for (category of categoryStore.topLevelCategories(); track category.id) {
 
         <li class="list-none inline-block mx-4 py-1.5 h-10 relative group">
             <a href="javascript:void(0)" class="text-white text-sm font-bold no-underline relative pb-0.5">
