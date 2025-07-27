@@ -5,8 +5,10 @@
         </div>
         <div class="p-0 w-[50%] h-[2.5rem] flex bg-white items-center rounded-md overflow-hidden">
             <select class="w-auto bg-gray-300 h-full border-none font-semibold px-2 pr-5">
-                <option value="">Men</option>
-                <option value="">Women</option>
+                @for (category of categoryStore.topLevelCategories(); track $index) {
+                    <option value="">{{ category.category }}</option>
+                }
+                
             </select>
             <input class="w-[90%] h-full inline-block border-none outline-none px-3" placeholder="Search..." />
             <button class="w-[10%] h-10 border-none bg-gray-300 flex justify-center items-center">
@@ -27,7 +29,7 @@
 
             </div>
             <div class="flex items-center gap-4 text-[1.3em] text-white">
-                <fa-icon [icon]="faHeart"></fa-icon>
+                
                 <fa-icon [icon]="faShoppingCart"></fa-icon>
             </div>
         </div>
