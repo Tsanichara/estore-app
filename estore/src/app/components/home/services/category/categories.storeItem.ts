@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { CategoryType } from '../types/categoryType';
+import { CategoryType } from '../../types/categoryType';
 import { Category } from './category';
 
 @Injectable()

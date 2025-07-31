@@ -1,5 +1,5 @@
 <div class="flex flex-wrap justify-evenly">
-    @for (product of products; track product.id) {
+    @for (product of productsStoreItem.products(); track product.id) {
     <div class="mx-4 p-3 mt-4 mb-4 flex flex-col rounded-lg shadow-md">
         <div class="overflow-hidden rounded-md">
             <img [src]="'assets/images/' + product.product_img" [alt]="product.product_name" class="rounded-md mx-auto transition-transform duration-300
