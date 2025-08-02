@@ -20,4 +20,8 @@ export class Home {
     this.categoriesStoreItem.loadCategories();
     this.productsStoreItem.loadProducts();
   }
+
+  onSelectSubCategory(subCategoryId: number): void {
+    this.productsStoreItem.loadProducts({ subcategoryid: subCategoryId });
+  }
 }
