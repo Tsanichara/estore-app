@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Category } from '../services/category/category';
+import { Component, output } from '@angular/core';
+
 import { CategoryType } from '../types/categoryType';
 import { CategoriesStoreItem } from '../services/category/categories.storeItem';
 
@@ -10,8 +10,13 @@ import { CategoriesStoreItem } from '../services/category/categories.storeItem';
   styleUrl: './catnavigation.css'
 })
 export class Catnavigation {
+  readonly categoryClicked = output<number>();
   constructor(public categoryStore: CategoriesStoreItem) {
 
   }
+
+   onCategoryClick(mainCategory: CategoryType) {
+      this.categoryClicked.emit(mainCategory.id);
+    }
 
 }
