@@ -12,6 +12,7 @@ export class ProductsService {
   getAllProducts(filters?: {
     maincategoryid?: number;
     subcategoryid?: number;
+    keyword?: string;
   }): Observable<Product[]> {
     let params = new HttpParams();
 
@@ -21,6 +22,10 @@ export class ProductsService {
 
      if (filters?.subcategoryid != null) {
       params = params.set('subcategoryid', filters.subcategoryid.toString());
+    }
+
+    if (filters?.keyword) {
+      params = params.set('keyword', filters.keyword);
     }
 
     return this.http.get<Product[]>(this.baseURL, { params });

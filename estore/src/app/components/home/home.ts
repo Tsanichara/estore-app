@@ -7,6 +7,7 @@ import { Category } from './services/category/category';
 import { CategoriesStoreItem } from './services/category/categories.storeItem';
 import { ProductsStoreItem } from './services/product/products.storeItem';
 import { ProductsService } from './services/product/products-service';
+import { SearchKeyword } from './types/searchKeyword.type';
 
 @Component({
   selector: 'app-home',
@@ -28,4 +29,13 @@ export class Home {
   onSelectCategory(mainCategoryId: number): void {
     this.productsStoreItem.loadProducts({ maincategoryid: mainCategoryId });
   }
+
+
+  onSearchKeyword(searchKeyword: SearchKeyword): void {
+    this.productsStoreItem.loadProducts({
+      maincategoryid: searchKeyword.categoryId,
+      keyword: searchKeyword.keyword,
+    })
+  }
+
 }
