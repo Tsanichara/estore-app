@@ -3,6 +3,8 @@
         <div class="text-white px-3 w-[23%] flex items-center">
             <h1 class="text-xl font-bold">eStore</h1>
         </div>
+
+        @if (displaySearch()) {
         <div class="p-0 w-[50%] h-[2.5rem] flex bg-white items-center rounded-md overflow-hidden">
             <select #categoryOptions class="w-auto bg-gray-300 h-full border-none font-semibold px-2 pr-5">
                 @for (category of categoryStore.topLevelCategories(); track $index) {
@@ -32,7 +34,9 @@
                 
                 <fa-icon [icon]="faShoppingCart"></fa-icon>
             </div>
+
         </div>
+    }
 
     
 </div>
