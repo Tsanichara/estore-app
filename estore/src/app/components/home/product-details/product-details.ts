@@ -4,19 +4,24 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../services/product/products-service';
 import { Product } from '../types/productsType';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
+import { CartStoreItem } from '../services/cart/cart.storeitem';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-product-details',
-  imports: [Ratings],
+  imports: [Ratings, FontAwesomeModule],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css'
 })
 export class ProductDetails {
   private readonly route = inject(ActivatedRoute);
   private readonly productsService = inject(ProductsService);
+  private readonly cart = inject(CartStoreItem);
 
   readonly product = signal<Product | null>(null);
+
+  faShoppingCart = faShoppingCart;
 
   constructor() {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -30,4 +35,12 @@ export class ProductDetails {
     }
 
   }
+
+  addToCart() {
+    const product = this.product();
+    if (product) {
+      this.cart.addProduct(product);
+    }
+  }
+
 }

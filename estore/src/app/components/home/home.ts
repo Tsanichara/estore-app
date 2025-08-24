@@ -10,13 +10,14 @@ import { ProductsService } from './services/product/products-service';
 import { SearchKeyword } from './types/searchKeyword.type';
 import { RouterOutlet } from '@angular/router';
 import { ProductsGallery } from './products-gallery/products-gallery';
+import { CartStoreItem } from './services/cart/cart.storeitem';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, Catnavigation, RouterOutlet, ProductsGallery],
+  imports: [Header, Catnavigation, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
-  providers: [Category, CategoriesStoreItem, ProductsStoreItem, ProductsService],
+  providers: [Category, CategoriesStoreItem, ProductsStoreItem, ProductsService, CartStoreItem],
 })
 export class Home {
   constructor(private categoriesStoreItem: CategoriesStoreItem, private productsStoreItem: ProductsStoreItem) {
