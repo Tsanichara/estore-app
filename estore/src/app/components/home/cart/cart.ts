@@ -4,11 +4,12 @@ import { CartItem } from '../types/cart.type';
 import { Router } from '@angular/router';
 import { CartStoreItem } from '../services/cart/cart.storeitem';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Ratings } from "../../ratings/ratings";
 
 
 @Component({
   selector: 'app-cart',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, Ratings],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
