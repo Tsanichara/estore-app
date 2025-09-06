@@ -1,0 +1,61 @@
+<div>
+    <div>
+        <div>
+            <h2>
+                Become a member
+            </h2>
+        </div>
+
+        <form [formGroup]="userSignupForm">
+            <!--Name Row-->
+            <div>
+                <div>
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" formControlName="firstName" />
+                </div>
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" formControlName="lastName" />
+                </div>
+            </div>
+            <!--Address, City, State, Pin-->
+            <div>
+                <div>
+                    <label for="address">Address</label>
+                    <input type="text" id="address" formControlName="address" />
+                </div>
+                <div>
+                    <label for="city">City</label>
+                    <input type="text" id="city" formControlName="city" />
+                </div>
+                <div>
+                    <label for="state">State</label>
+                    <input type="text" id="state" formControlName="state" />
+                </div>
+                <div>
+                    <label for="pin">Pin</label>
+                    <input type="text" id="pin" formControlName="pin" />
+                </div>
+            </div>
+            <!--Email-->
+            <div>
+                <label for="email">Email</label>
+                    <input type="email" id="email" formControlName="email" />
+            </div>
+             <!--Passwords-->
+            <div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" formControlName="password" />
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+                </div>
+            </div>
+             <!--Button-->
+             <button type="submit">Register</button>
+        </form>
+
+    </div>
+</div>

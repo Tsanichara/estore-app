@@ -8,9 +8,11 @@ import { CategoriesStoreItem } from './services/category/categories.storeItem';
 import { ProductsStoreItem } from './services/product/products.storeItem';
 import { ProductsService } from './services/product/products-service';
 import { SearchKeyword } from './types/searchKeyword.type';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ProductsGallery } from './products-gallery/products-gallery';
 import { CartStoreItem } from './services/cart/cart.storeitem';
+import { NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -20,9 +22,17 @@ import { CartStoreItem } from './services/cart/cart.storeitem';
   providers: [Category, CategoriesStoreItem, ProductsStoreItem, ProductsService, CartStoreItem],
 })
 export class Home {
-  constructor(private categoriesStoreItem: CategoriesStoreItem, private productsStoreItem: ProductsStoreItem) {
+  constructor(private categoriesStoreItem: CategoriesStoreItem, private productsStoreItem: ProductsStoreItem,
+    private router: Router
+  ) {
     this.categoriesStoreItem.loadCategories();
     this.productsStoreItem.loadProducts();
+
+    router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
+      if((event as NavigationEnd).url === '/home'){
+        router.navigate(['/home/products'])
+      }
+    });
   }
 
 
