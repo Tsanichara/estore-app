@@ -40,6 +40,29 @@
                         <div class="my-2">
                             <app-ratings [score]="cartItem.product.ratings"></app-ratings>
                         </div>
+
+                        <hr class="my-3 border-gray-300"/>
+
+                        <div class="flex items-center flex-wrap gap-4">
+                            <div class="flex border rounded overflow-hidden" (click)="updateQuantity($event, cartItem)">
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 font-bold cursor-pointer">
+                                    -
+                                </button>
+                                <div class="px-4 py-1 font-semibold text-center min-w-[3rem]">
+                                    {{cartItem.quantity}}
+                                </div>
+                                 <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 font-bold cursor-pointer">
+                                    +
+                                </button>
+                            </div>
+                            <button type="button" class="bg-red-500 hover:bg-red-600 text-white
+                            font-semibold px-4 py-2 rounded cursor-pointer flex items-center gap-2"
+                            (click)="removeItem(cartItem)">
+                            <fa-icon [icon]="faTrash"></fa-icon>
+                                Remove Item
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             }

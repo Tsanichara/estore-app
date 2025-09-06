@@ -45,4 +45,32 @@ export class CartStoreItem {
 
     }
 
+    decreaseProductQuantity(cartItem: CartItem): void {
+        const updatedItems = this._products().map((item) => {
+            if(item.product.id === cartItem.product.id){
+                if(item.quantity <=1){
+                    return null;
+                }
+
+                return {
+                    ...item,
+                    quantity: item.quantity-1,
+                    amount: item.amount - Number(item.product.price),
+                };
+            }
+            return item;
+        }).filter(Boolean) as CartItem[]; //remove nulls
+
+        this._products.set(updatedItems);
+    }
+
+
+    removeProduct(cartItem: CartItem): void {
+        const updatedItems = this._products().filter(
+            (item) => item.product.id !== cartItem.product.id
+        );
+
+        this._products.set(updatedItems);
+    }
+
 }
