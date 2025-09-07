@@ -12,6 +12,9 @@
                 <div>
                     <label for="firstName">First Name *</label>
                     <input type="text" id="firstName" formControlName="firstName" />
+                    @if (firstName?.touched && firstName?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">First name is required.</span>
+                    }
                 </div>
                 <div>
                     <label for="lastName">Last Name</label>
@@ -39,22 +42,34 @@
             </div>
             <!--Email-->
             <div>
-                <label for="email">Email</label>
+                <label for="email">Email *</label>
                     <input type="email" id="email" formControlName="email" />
             </div>
+             @if (email?.touched && email?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">Email is required.</span>
+                    }
+             @if (email?.touched && email?.errors?.['email']) {
+                        <span class="text-red-500 text-sm">Enter valid email address</span>
+                    }
              <!--Passwords-->
             <div>
                 <div>
-                    <label for="password">Password</label>
+                    <label for="password">Password *</label>
                     <input type="password" id="password" formControlName="password" />
+                     @if (password?.touched && password?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">Password is required.</span>
+                    }
                 </div>
                 <div>
-                    <label for="confirmPassword">Confirm Password</label>
+                    <label for="confirmPassword">Confirm Password *</label>
                     <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+                     @if (confirmPassword?.touched && confirmPassword?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">Password is required.</span>
+                    }
                 </div>
             </div>
              <!--Button-->
-             <button type="submit">Register</button>
+             <button type="submit" [disabled]="!userSignupForm.valid">Register</button>
         </form>
 
     </div>
