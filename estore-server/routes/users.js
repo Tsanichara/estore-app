@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const user = express.Router();
 
 user.post("/signup", async (req, res) => {
-    const {firstname, lastname, address, city, state, pin, email, password} = req.body;
+    const {firstName, lastName, address, city, state, pin, email, password} = req.body;
 
     try {
         const [existingUser] = await pool.promise().query(
@@ -13,19 +13,20 @@ user.post("/signup", async (req, res) => {
         )
 
         if(existingUser[0].count > 0){
-            return res.status(200).send('Email already exists');
+            return res.status(200).send({message: 'Email already exists'});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await pool.promise().query(
             `insert into users (email, firstname, lastname, address, city, state, pin, password) 
-            values (?, ?, ?, ?, ?, ?, ?, ?)`, [email, firstname, lastname, address, city, state, pin, hashedPassword]
+            values (?, ?, ?, ?, ?, ?, ?, ?)`, [email, firstName, lastName, address, city, state, pin, hashedPassword]
         )
 
-       res.status(201).send("Success"); 
+       res.status(201).send({message: "Success"}); 
     } catch(error){
-        res.status(500).send(error.message) || "Something went wrong";
+        console.log("Signup Error: ", error)
+        res.status(500).send({error: error.code || "INTERNAL_ERROR" || "Something went wrong"});
     }
 
 })
