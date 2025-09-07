@@ -5,6 +5,7 @@ import { ProductsGallery } from './components/home/products-gallery/products-gal
 import { ProductDetails } from './components/home/product-details/product-details';
 import { Cart } from './components/home/cart/cart';
 import { UserSignup } from './components/home/user/user-signup/user-signup';
+import { UserLogin } from './components/home/user/user-login/user-login';
 
 export const routes: Routes = [
 
@@ -26,7 +27,11 @@ export const routes: Routes = [
             {
                 path: 'signup',
                 component: UserSignup,
-            }
+            },
+            {
+                path: 'login',
+                component: UserLogin,
+            },
         ]
     },
     {path: '', redirectTo: '/home/products', pathMatch: 'full'},

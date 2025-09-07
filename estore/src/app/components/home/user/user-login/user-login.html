@@ -1,0 +1,43 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="w-full max-w-md bg-white p-8 rounded shadow-md">
+    <div class="mb-6 text-center">
+      <h2 class="text-2xl font-bold text-gray-800">Login to Your Account</h2>
+    </div>
+
+    <form [formGroup]="userLoginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
+        <input type="text" id="email" formControlName="email"
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-amber-300 focus:outline-none"/>
+        @if (email?.touched && email?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">Email is required.</span>
+                    }
+        @if (email?.touched && email?.errors?.['email']) {
+                        <span class="text-red-500 text-sm">Enter valid email address</span>
+                    }       
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password *</label>
+        <input type="password" id="password" formControlName="password"
+               class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-amber-300 focus:outline-none"/>
+        @if (password?.touched && password?.errors?.['required']) {
+                        <span class="text-red-500 text-sm">Password is required.</span>
+                    }
+      </div>
+
+      <div>
+        <button type="submit"
+                [disabled]="!userLoginForm.valid"
+                class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded-md transition disabled:opacity-50 disabled:cursor-not-allowed">
+          Sign In
+        </button>
+      </div>
+
+      <div class="text-center text-sm text-gray-600">
+        Not a member?
+        <a href="/home/signup" class="text-amber-500 hover:underline font-medium">Register</a>
+      </div>
+    </form>
+  </div>
+</div>
