@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators} from '@angular/forms';
+import { matchPasswords } from './validators/match-passwords.validator';
 
 @Component({
   selector: 'app-user-signup',
@@ -21,7 +22,11 @@ export class UserSignup {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
-    });
+    },
+    {
+      validator: matchPasswords,
+    }
+  );
   }
 
   get firstName(): AbstractControl<any, any> | null {

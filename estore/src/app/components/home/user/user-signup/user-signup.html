@@ -66,6 +66,9 @@
                      @if (confirmPassword?.touched && confirmPassword?.errors?.['required']) {
                         <span class="text-red-500 text-sm">Password is required.</span>
                     }
+                     @if (confirmPassword?.touched && userSignupForm.errors?.['passwordMismatch']) {
+                        <span class="text-red-500 text-sm">Passwords must match</span>
+                    }
                 </div>
             </div>
              <!--Button-->
