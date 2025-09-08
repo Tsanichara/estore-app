@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators} from '@angular/forms';
 import { matchPasswords } from './validators/match-passwords.validator';
-import { UserService } from '../services/userService';
+import { UserService } from '../../services/user/userService';
 import { User } from '../../types/user.type';
 import { NgClass } from '@angular/common';
 
@@ -10,7 +10,6 @@ import { NgClass } from '@angular/common';
   imports: [ReactiveFormsModule, NgClass],
   templateUrl: './user-signup.html',
   styleUrl: './user-signup.css',
-  providers: [UserService],
 })
 export class UserSignup {
   userSignupForm: FormGroup;
