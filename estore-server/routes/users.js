@@ -55,9 +55,18 @@ user.post("/login", async (req, res) => {
             { expiresIn: "1h" }
         );
 
-        res.status(200).send({ token: token,
+        res.status(200).send({
+            token: token,
             expiresInSeconds: 3600,
-             message: "Login successful" })
+            user: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                address: user.address,
+                city: user.city,
+                state: user.state,
+                pin: user.pin,
+            },
+            message: "Login successful", })
 
     } catch(err) {
         console.log("Login Error: ", err);

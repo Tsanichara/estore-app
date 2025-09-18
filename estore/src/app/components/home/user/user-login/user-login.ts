@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators, ɵInternalFormsSha
 import { UserService } from '../../services/user/userService';
 import { LoginToken } from '../../types/user.type';
 import { NgClass } from '@angular/common';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class UserLogin {
   alertType: number = 0;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService){
+  constructor(private fb: FormBuilder, private userService: UserService, private location: Location){
     this.userLoginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -56,7 +57,9 @@ export class UserLogin {
           this.alertMessage = 'Invalid login attempt.'
           this.alertType = 1;
         }
-
+        setTimeout(() => {
+          this.location.back();
+        })
       },
       error: (err) => {
         this.userLoginForm.enable();
