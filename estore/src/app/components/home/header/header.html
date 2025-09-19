@@ -17,8 +17,10 @@
                 <fa-icon [icon]="faSearch"></fa-icon>
             </button>
         </div>
+        
 
         <div class="flex items-center w[27%] gap-6 justify-end h-full ml-5">
+            @if (!isUserAuthenticated()) {
             <div class="flex items-center gap-2 text-white">
                 <fa-icon [icon]="faUserCircle" class="text-[1.3em]"></fa-icon>
                 <h5>
@@ -27,6 +29,31 @@
             
 
             </div>
+        } @if (isUserAuthenticated()) {
+            <div class="relative inline-block text-left">
+                <button class="inline-flex items-center gap-2 px-4 py-2 bg-gray-700
+                text-white font-medium rounded-md hover:bg-gray-800 transition text-base cursor-pointer"
+                (click)="toggleDropdown()">
+                <fa-icon [icon]="faUserCircle" class="text-[1.3rem]">
+                  
+                </fa-icon>
+                  Hi {{ userName() }}
+                    <fa-icon [icon]="faChevronDown"></fa-icon>
+                </button>
+
+                @if (dropdownVisible) {
+                    <div class="absolute right-0 mt-2 w-36 bg-white rounded-md shadow-md border
+                    border-gray-200 z-50">
+                        <ul class="py-1 text-sm text-gray-700">
+                            <li class="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                                Logout
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+
             <div class="relative flex items-center gap-4 text-white">
                 <button type="button" class=" flex items-center justify-center text-white p-2
                 rounded-full bg-gray-700 hover:bg-gray-800 transition-colors cursor-pointer"

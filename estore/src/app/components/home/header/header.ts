@@ -1,6 +1,6 @@
 import { Component, effect, output, signal } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faSearch, faUserCircle, faShoppingCart} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faUserCircle, faShoppingCart, faChevronDown} from '@fortawesome/free-solid-svg-icons';
 import { CategoriesStoreItem } from '../services/category/categories.storeItem';
 import { SearchKeyword } from '../types/searchKeyword.type';
 import { NavigationEnd, Router } from '@angular/router';
@@ -18,8 +18,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class Header {
   faSearch = faSearch;
   faUserCircle = faUserCircle;
-  
+  faChevronDown = faChevronDown;
   faShoppingCart = faShoppingCart;
+
+  dropdownVisible = false;
+  toggleDropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
 
   readonly searchClicked = output<SearchKeyword>();
   displaySearch = signal(true);

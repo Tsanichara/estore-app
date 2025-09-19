@@ -4,6 +4,7 @@ import { UserService } from '../../services/user/userService';
 import { LoginToken } from '../../types/user.type';
 import { NgClass } from '@angular/common';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class UserLogin {
   alertType: number = 0;
   alertMessage: string = '';
 
-  constructor(private fb: FormBuilder, private userService: UserService, private location: Location){
+  constructor(private fb: FormBuilder, private userService: UserService, private location: Location, private router: Router){
     this.userLoginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -58,7 +59,8 @@ export class UserLogin {
           this.alertType = 1;
         }
         setTimeout(() => {
-          this.location.back();
+          this.router.navigate(['/home']);
+
         })
       },
       error: (err) => {
