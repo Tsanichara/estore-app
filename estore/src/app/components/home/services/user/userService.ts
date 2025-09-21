@@ -1,15 +1,21 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoggedInUser, LoginToken, User } from '../../types/user.type';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class UserService {
   private isAuthenticated = signal<boolean>(false);
   private loggedInUserInfo = signal<LoggedInUser>({} as LoggedInUser);
+  private autoLogoutTimer: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+     if (isPlatformBrowser(this.platformId)) {
+      this.loadToken(); // Only runs in browser
+    }
+   }
 
   get isUserAuthenticated(): boolean {
     return this.isAuthenticated();
@@ -47,6 +53,44 @@ export class UserService {
 
     this.isAuthenticated.set(true);
     this.loggedInUserInfo.set(token.user);
+    this.setAutoLogoutTimer(token.expiresInSeconds * 1000);
   }
 
+  logout(): void {
+    localStorage.clear();
+    this.isAuthenticated.set(false); 
+    this.loggedInUserInfo.set({} as LoggedInUser);
+    clearTimeout(this.autoLogoutTimer);
+  }
+
+  private setAutoLogoutTimer(duration: number): void {
+    this.autoLogoutTimer =  setTimeout(() => {
+      this.logout();
+    }, duration);
+  }
+
+  loadToken(): void {
+    const token = localStorage.getItem('token');
+    const expiry = localStorage.getItem('expiry');
+
+    if (!token || !expiry) return;
+
+    const expiresIn = new Date(expiry).getTime() - Date.now();
+    if (expiresIn > 0 ){
+      const user: LoggedInUser = {
+      firstName: localStorage.getItem('firstName') || '',
+      lastName: localStorage.getItem('lastName') || '',
+      address: localStorage.getItem('address') || '',
+      city: localStorage.getItem('city') || '',
+      state: localStorage.getItem('state') || '',
+      pin: localStorage.getItem('pin') || '',
+      };
+      this.isAuthenticated.set(true);
+      this.loggedInUserInfo.set(user);
+      this.setAutoLogoutTimer(expiresIn);
+    } else {
+      this.logout();
+    }
+
+  }
 }

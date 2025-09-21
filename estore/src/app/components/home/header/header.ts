@@ -70,4 +70,8 @@ export class Header {
     this.router.navigate(['home/cart']);
   }
 
+  logout(): void {
+    this.userService.logout();
+  }
+
 }
