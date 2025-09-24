@@ -55,6 +55,39 @@
 
       <!-- Cart Summary (Right Side) -->
       <div class="w-full lg:w-[30%] h-fit bg-gray-50 p-6 rounded-lg shadow-md">
+        <form [formGroup]="orderForm()" (ngSubmit)="onSubmit()">
+
+          <h2 class="text-2xl font-bold mb-4">Delivery Address</h2>
+
+          <div class="space-y-4">
+            <div class="flex flex-col">
+              <label for="name"
+              class="text-gray-600">Name</label>
+              <input type="text" id="name" formControlName="name" class="px-4 py-2 border rounded-md">
+            </div>
+             <div class="flex flex-col">
+              <label for="address"
+              class="text-gray-600">Address</label>
+              <input type="text" id="address" formControlName="address" class="px-4 py-2 border rounded-md">
+            </div>
+             <div class="flex flex-col">
+              <label for="city"
+              class="text-gray-600">City</label>
+              <input type="text" id="city" formControlName="city" class="px-4 py-2 border rounded-md">
+            </div>
+             <div class="flex flex-col">
+              <label for="state"
+              class="text-gray-600">State</label>
+              <input type="text" id="state" formControlName="state" class="px-4 py-2 border rounded-md">
+            </div>
+             <div class="flex flex-col">
+              <label for="pin"
+              class="text-gray-600">Pin</label>
+              <input type="text" id="pin" formControlName="pin" class="px-4 py-2 border rounded-md">
+            </div>
+             
+          </div>
+
         <h2 class="text-2xl font-bold mb-4">Summary</h2>
         <div class="text-left space-y-2">
           <p class="text-gray-600">Cart Total: ${{ cartStore.cart().totalAmount }}</p>
@@ -65,9 +98,12 @@
           <hr />
           <p class="text-xl font-bold">Total: ${{ cartStore.cart().totalAmount }}</p>
         </div>
-        <button class="w-full mt-5 bg-gray-800 text-white py-2 rounded hover:bg-gray-900 transition cursor-pointer">
+        <button [disabled]="!orderForm().valid" 
+        class="w-full mt-5 bg-gray-800 text-white py-2 rounded hover:bg-gray-900
+         transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
           Checkout
         </button>
+        </form>
       </div>
     </div>
   }
