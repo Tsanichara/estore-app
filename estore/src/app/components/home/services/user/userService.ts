@@ -45,7 +45,7 @@ export class UserService {
   }
 
 
-  activateToken(token: LoginToken, email: string): void {
+  activateToken(token: LoginToken): void {
     localStorage.setItem('token', token.token);
     localStorage.setItem('expiry', new Date(Date.now() + token.expiresInSeconds * 1000).toISOString());
 
@@ -55,7 +55,7 @@ export class UserService {
     localStorage.setItem('city', token.user.city);
     localStorage.setItem('state', token.user.state);
     localStorage.setItem('pin', token.user.pin);
-    localStorage.setItem('email', email);
+    localStorage.setItem('email', token.user.email);
 
     this.isAuthenticated.set(true);
     this.loggedInUserInfo.set(token.user);

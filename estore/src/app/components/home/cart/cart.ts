@@ -8,11 +8,14 @@ import { Ratings } from "../../ratings/ratings";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoggedInUser } from '../types/user.type';
 import { UserService } from '../services/user/userService';
+import { OrderService } from '../services/order/order-service';
+import { NgClass } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-cart',
-  imports: [FontAwesomeModule, Ratings, ReactiveFormsModule],
+  imports: [FontAwesomeModule, Ratings, ReactiveFormsModule, NgClass],
   templateUrl: './cart.html',
   styleUrl: './cart.css'
 })
@@ -20,6 +23,10 @@ export class Cart {
   faTrash = faTrash;
   faBoxOpen = faBoxOpen;
   faShoppingCart = faShoppingCart;
+
+  alertType: number = 0;
+  alertMessage: string = '';
+  disableCheckout: boolean = false;
 
   user = signal<LoggedInUser>({
     firstName: '',
@@ -33,7 +40,14 @@ export class Cart {
 
   orderForm: WritableSignal<FormGroup>;
 
-  constructor(public cartStore: CartStoreItem, private router: Router, private userService: UserService, private fb: FormBuilder) {
+  constructor(
+    public cartStore: CartStoreItem,
+    private router: Router,
+    private userService: UserService,
+    private fb: FormBuilder,
+    private orderService: OrderService
+  )
+     {
     this.orderForm = signal(this.createOrderForm(this.user()));
     this.userService.loggedInUser$.subscribe((u) => this.user.set(u));
 
@@ -74,10 +88,52 @@ export class Cart {
   }
 
   onSubmit(): void {
-    if (this.orderForm().valid){
-      console.log('Order submitted: ', this.orderForm().value);
-    } else {
-      console.log('Invalid order form');
+    if(!this.userService.isUserAuthenticated) {
+      this.alertType = 2;
+      this.alertMessage = 'Please log in to register your order.';
+      return;
     }
+
+    const form = this.orderForm();
+
+    if (form.invalid){
+      this.alertType = 2;
+      this.alertMessage = 'Please fill out all required fields correctly.';
+      return;
+    }
+
+    const deliveryAddress = {
+      userName: form.get('name')?.value,
+      address: form.get('address')?.value,
+      city: form.get('city')?.value,
+      state: form.get('state')?.value,
+      pin: form.get('pin')?.value,
+    };
+
+    const email = this.user()?.email;
+
+    if(!email){
+      this.alertType = 2;
+      this.alertMessage = 'User email not found. Please log in again.';
+      return;
+    }
+
+    this.orderService.saveOrder(deliveryAddress, email).subscribe({
+      next: (res)=> {
+        this.cartStore.clearCart();
+        this.alertType = 0;
+        this.alertMessage = "Order registered successfully!";
+        this.disableCheckout =  true;
+      },
+      error: (error) => {
+        this.alertType = 2;
+        if(error.error?.message === 'Authorization failed!') {
+          this.alertMessage = 'Please log in to register your order.';
+
+        } else {
+          this.alertMessage = error.error?.message || 'An unexpected error occured.';
+        }
+      },
+    })
   }
 }

@@ -95,4 +95,10 @@ export class CartStoreItem {
       return [];
     }
   }
+
+  clearCart(): void {
+    sessionStorage.removeItem('cart');
+    this._products.set([]);
+  }
+
 }
