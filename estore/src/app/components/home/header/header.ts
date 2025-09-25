@@ -50,6 +50,7 @@ export class Header {
         city: '',
         state: '',
         pin: '',
+        email: '',
       },
     })
 

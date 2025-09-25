@@ -14,13 +14,14 @@ import { CartStoreItem } from './services/cart/cart.storeitem';
 import { NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { UserService } from './services/user/userService';
+import { OrderService } from './services/order/order-service';
 
 @Component({
   selector: 'app-home',
   imports: [Header, Catnavigation, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.css',
-  providers: [Category, CategoriesStoreItem, ProductsStoreItem, ProductsService, CartStoreItem, UserService],
+  providers: [Category, CategoriesStoreItem, ProductsStoreItem, ProductsService, CartStoreItem, UserService, OrderService],
 })
 export class Home {
   constructor(private categoriesStoreItem: CategoriesStoreItem, private productsStoreItem: ProductsStoreItem,

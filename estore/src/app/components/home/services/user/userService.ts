@@ -10,6 +10,7 @@ export class UserService {
   private isAuthenticated = signal<boolean>(false);
   private loggedInUserInfo = signal<LoggedInUser>({} as LoggedInUser);
   private autoLogoutTimer: any;
+  private authToken!: string;
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
      if (isPlatformBrowser(this.platformId)) {
@@ -29,6 +30,10 @@ export class UserService {
     return toObservable(this.loggedInUserInfo);
   }
 
+  get token(): string {
+    return this.authToken;
+  }
+
   createUser(user: User): Observable<any> {
     const url: string = 'http://localhost:5001/users/signup';
     return this.http.post(url, user)
@@ -40,7 +45,7 @@ export class UserService {
   }
 
 
-  activateToken(token: LoginToken): void {
+  activateToken(token: LoginToken, email: string): void {
     localStorage.setItem('token', token.token);
     localStorage.setItem('expiry', new Date(Date.now() + token.expiresInSeconds * 1000).toISOString());
 
@@ -50,10 +55,12 @@ export class UserService {
     localStorage.setItem('city', token.user.city);
     localStorage.setItem('state', token.user.state);
     localStorage.setItem('pin', token.user.pin);
+    localStorage.setItem('email', email);
 
     this.isAuthenticated.set(true);
     this.loggedInUserInfo.set(token.user);
     this.setAutoLogoutTimer(token.expiresInSeconds * 1000);
+    this.authToken = token.token;
   }
 
   logout(): void {
@@ -84,10 +91,12 @@ export class UserService {
       city: localStorage.getItem('city') || '',
       state: localStorage.getItem('state') || '',
       pin: localStorage.getItem('pin') || '',
+      email: localStorage.getItem('email') || '',
       };
       this.isAuthenticated.set(true);
       this.loggedInUserInfo.set(user);
       this.setAutoLogoutTimer(expiresIn);
+      this.authToken = token;
     } else {
       this.logout();
     }

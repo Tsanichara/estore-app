@@ -50,7 +50,7 @@ export class UserLogin {
         this.userLoginForm.enable();
 
         if(result.token){
-          this.userService.activateToken(result);
+          this.userService.activateToken(result, this.email?.value);
           this.alertMessage = 'Login successful';
           this.alertType = 0;
           this.userLoginForm.reset();

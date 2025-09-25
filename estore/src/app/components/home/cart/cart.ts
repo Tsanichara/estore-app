@@ -28,6 +28,7 @@ export class Cart {
     city: '',
     state: '',
     pin: '',
+    email: '',
   })
 
   orderForm: WritableSignal<FormGroup>;
