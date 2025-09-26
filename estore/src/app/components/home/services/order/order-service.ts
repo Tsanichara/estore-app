@@ -4,7 +4,7 @@ import { CartStoreItem } from '../cart/cart.storeitem';
 import { UserService } from '../user/userService';
 import { DeliveryAddress } from '../../types/cart.type';
 import { Observable } from 'rxjs';
-import { Order, OrderItem } from '../../types/order.type';
+import { Order, OrderItem, PastOrder, PastOrderProduct } from '../../types/order.type';
 
 @Injectable()
 export class OrderService {
@@ -41,4 +41,24 @@ export class OrderService {
       headers: {authorization: this.userService.token },
     });
   }
+
+  getOrders(userEmail: string): Observable<PastOrder[]> {
+
+    const url: string = `http://localhost:5001/orders/allorders?userEmail=${userEmail}`;
+
+    return this.httpClient.get<PastOrder[]>(url, {
+      headers: { authorization: this.userService.token },
+    })
+  }
+
+  getOrderProducts(orderId: string): Observable<PastOrderProduct[]> {
+    const url: string = `http://localhost:5001/orders/orderproducts?orderId=${orderId}`;
+
+     return this.httpClient.get<PastOrderProduct[]>(url, {
+      headers: { authorization: this.userService.token },
+    });
+  }
+
+  
+
 }

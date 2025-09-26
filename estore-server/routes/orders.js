@@ -51,7 +51,7 @@ orders.post("/add", checkToken, async (req, res) => {
 });
 
 orders.get("/allorders", checkToken, async(req, res) => {
-    const {userEmail} = req.body;
+    const {userEmail} = req.query;
 
     try{
         const [users] = await pool.promise().query(`Select id from users where email = ?`, [userEmail]);
@@ -90,15 +90,16 @@ orders.get("/allorders", checkToken, async(req, res) => {
 });
 
 orders.get("/orderproducts", checkToken, async(req, res) => {
-    const {orderId } = req.body;
+    const {orderId } = req.query;
 
     try {
-        const [orderProducts] = await pool.promise().query(`select od.productId, p.product_name, od.qty, od.price, 
+        const [orderProducts] = await pool.promise().query(`select od.productId, p.product_name, p.product_img, od.qty, od.price, 
             od.amount from orderDetails od join products p on od.productId = p.id where od.orderId = ?`, [orderId]);
 
         const orderDetails = orderProducts.map((item) => ({
             productId: item.productId,
             productName: item.product_name,
+            productImage: item.product_img,
             qty: item.qty,
             price: item.price,
             amount: item.amount,

@@ -75,4 +75,9 @@ export class Header {
     this.userService.logout();
   }
 
+
+  pastOrders(): void {
+    this.router.navigate(['home/pastorders']);
+  }
+
 }

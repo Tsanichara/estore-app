@@ -6,6 +6,7 @@ import { ProductDetails } from './components/home/product-details/product-detail
 import { Cart } from './components/home/cart/cart';
 import { UserSignup } from './components/home/user/user-signup/user-signup';
 import { UserLogin } from './components/home/user/user-login/user-login';
+import { PastOrders } from './components/home/past-orders/past-orders';
 
 export const routes: Routes = [
 
@@ -31,6 +32,10 @@ export const routes: Routes = [
             {
                 path: 'login',
                 component: UserLogin,
+            },
+            {
+                path: 'pastorders',
+                component: PastOrders
             },
         ]
     },
