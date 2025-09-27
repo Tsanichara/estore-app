@@ -1,59 +1,54 @@
-# Estore
+# 🛒 eStore – Full Stack E‑Commerce App  
+Angular Frontend + Express Backend + MySQL + Stripe Checkout
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.5.
+A complete e‑commerce application with a **modern Angular frontend**, a **Node.js + Express backend**, **MySQL database**, and **Stripe Checkout** integration for payments.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📂 Project Structure
 
-```bash
-ng serve
-```
+estore-app/
+├── backend/ # Express backend (Node.js + MySQL)
+│ ├── routes/ # API routes (users, products, orders, etc.)
+│ ├── controllers/ # Business logic
+│ ├── models/ # DB Models / queries
+│ ├── db/ # DB config and connection pool
+│ ├── middleware/ # Auth / validation middleware
+│ ├── .env # Backend environment variables
+│ └── server.js # Entry point
+│
+├── frontend/ # Angular application
+│ ├── src/
+│ │ └── app/ # Components, services, routing, etc.
+│ ├── angular.json
+│ └── .env # Frontend environment variables (if needed)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Features
 
-## Code scaffolding
+### Frontend (Angular)
+- Responsive UI (Tailwind CSS)
+- Category browsing & keyword search
+- Add to cart, update quantity, remove items
+- Delivery form with validation
+- Stripe Checkout redirect flow
+- Past orders for authenticated users
+- Accessibility support (ARIA, keyboard nav)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Backend (Node.js + Express + MySQL)
+- REST API for users, products, orders
+- Authentication via token stored in localStorage
+- Persistent cart & order handling
+- Stripe Checkout session creation
+- Environment‑configurable MySQL connection
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 💳 Stripe Integration Flow
+- User fills delivery address and proceeds to checkout.
+- App saves form + cart in `localStorage` and redirects to **Stripe Checkout**.
+- After payment success:
+  - User is redirected back to Angular app.
+  - Delivery info is restored.
+  - Order saved to MySQL database.
+  - Cart cleared.
+- Past orders can be viewed after login.
