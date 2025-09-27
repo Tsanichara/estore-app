@@ -17,6 +17,7 @@ export interface Order {
 }
 
 export interface PastOrder {
+    orderId: number;
     userName: string;
     address: string;
     city: string;

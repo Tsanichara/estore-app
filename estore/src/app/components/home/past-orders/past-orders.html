@@ -3,17 +3,22 @@
         <div class="lg:col-span-2 space-y-6 min-h[600px]">
             <div>
                 <label class="block text-lg font-semibold mb-2 text-gray-800">Select Order</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none 
+                <select (change)="selectOrder($event)"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none 
                 focus:ring-2 focus:ring-blue-500">
                     <option value="0" disabled selected>Please select value</option>
-                    <option value="1">Order 1</option>
-                    <option value="2">Order 2</option>
+                    @for (pastOrder of pastOrders(); track $index) {
+                        <option value="{{pastOrder.orderId}}">{{ pastOrder.orderId}}  Date: {{ pastOrder.orderDate }}</option>
+                    }
+                    
+                    
                 </select>
             </div>
 
-            <div class="space-y-6">
+            @if (pastOrder()) {
+                <div class="space-y-6">
                 <h2 class="text-xl font-semibold text-gray-900">Previous Order Details</h2>
-                @for (product of pastOrderProducts; track product) {
+                @for (product of pastOrderProducts(); track product) {
                     <div class="flex flex-col sm:flex-row gap-4 items-start bg-gray-50 p-4 rounded-lg">
                         <img [src]="'../../../../assets/images/' + product.productImage" alt="Product Image" 
                         class="w-full sm:w-32 h-32 object-cover rounded-md"/>
@@ -35,6 +40,9 @@
                     </div>
                 }
             </div>
+            }
+
+            
 
         </div>
 
@@ -43,19 +51,19 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">
                     Delivery Address
                 </h2>
-                <p><strong>Name:</strong> {{ pastOrder.userName }}</p>
-                <p><strong>Address:</strong> {{ pastOrder.address }}</p>
-                <p><strong>City:</strong> {{ pastOrder.city }}</p>
-                <p><strong>State:</strong> {{ pastOrder.state }}</p>
-                <p><strong>Pin:</strong> {{ pastOrder.pin }}</p>
+                <p><strong>Name:</strong> {{ pastOrder()?.userName }}</p>
+                <p><strong>Address:</strong> {{ pastOrder()?.address }}</p>
+                <p><strong>City:</strong> {{ pastOrder()?.city }}</p>
+                <p><strong>State:</strong> {{ pastOrder()?.state }}</p>
+                <p><strong>Pin:</strong> {{ pastOrder()?.pin }}</p>
             </div>
 
             <div class="bg-gray-100 p-5 rounded-lg space-y-2 sticky top-[280px]">
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Summary</h2>
-                <p><strong>Order Total:</strong> ${{ pastOrder.total }}</p>
+                <p><strong>Order Total:</strong> ${{ pastOrder()?.total }}</p>
                 <p><strong>Shipping Charges:</strong> Free </p>
                 <hr />
-                <p class="text-lg font-bold text-gray-900">Total: ${{ pastOrder.total }}</p>
+                <p class="text-lg font-bold text-gray-900">Total: ${{ pastOrder()?.total }}</p>
             </div>
         </div>
     </div>
