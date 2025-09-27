@@ -7,6 +7,7 @@ import { Cart } from './components/home/cart/cart';
 import { UserSignup } from './components/home/user/user-signup/user-signup';
 import { UserLogin } from './components/home/user/user-login/user-login';
 import { PastOrders } from './components/home/past-orders/past-orders';
+import { authGuard } from './components/home/servies/auth-guard';
 
 export const routes: Routes = [
 
@@ -35,7 +36,8 @@ export const routes: Routes = [
             },
             {
                 path: 'pastorders',
-                component: PastOrders
+                component: PastOrders,
+                canActivate: [authGuard],
             },
         ]
     },
