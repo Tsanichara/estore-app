@@ -36,6 +36,8 @@ export class UserService {
     return this.loggedInUserInfo();
   }
 
+
+
   get token(): string {
     return this.authToken;
   }
