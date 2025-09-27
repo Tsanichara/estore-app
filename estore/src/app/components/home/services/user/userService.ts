@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class UserService {
-  private isAuthenticated = signal<boolean>(false);
+  public isAuthenticated = signal<boolean>(false);
   private loggedInUserInfo = signal<LoggedInUser>({} as LoggedInUser);
   private autoLogoutTimer: any;
   private authToken!: string;

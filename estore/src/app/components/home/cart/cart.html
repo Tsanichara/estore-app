@@ -75,7 +75,7 @@
         {{ alertMessage }}
       </div>
     }
-        <form [formGroup]="orderForm()" (ngSubmit)="onSubmit()">
+        <form [formGroup]="orderForm()">
 
           <h2 class="text-2xl font-bold mb-4">Delivery Address</h2>
 
@@ -118,7 +118,7 @@
           <hr />
           <p class="text-xl font-bold">Total: ${{ cartStore.cart().totalAmount }}</p>
         </div>
-        <button [disabled]="!orderForm().valid || disableCheckout" 
+        <button type="submit" (click)="checkout()" [disabled]="!orderForm().valid || disableCheckout" 
         class="w-full mt-5 bg-gray-800 text-white py-2 rounded hover:bg-gray-900
          transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
           Checkout

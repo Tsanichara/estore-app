@@ -97,8 +97,16 @@ export class CartStoreItem {
   }
 
   clearCart(): void {
+
+    if (!this.isBrowser) return;
+
     sessionStorage.removeItem('cart');
     this._products.set([]);
+
+    const check = sessionStorage.getItem('cart');
+    if (check) {
+      console.warn('Cart not cleared from sessionStorage!');
+    }
   }
 
 }
