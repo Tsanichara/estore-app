@@ -5,24 +5,6 @@ A complete e‑commerce application with a **modern Angular frontend**, a **Node
 
 ---
 
-## 📂 Project Structure
-
-estore-app/
-├── backend/ # Express backend (Node.js + MySQL)
-│ ├── routes/ # API routes (users, products, orders, etc.)
-│ ├── controllers/ # Business logic
-│ ├── models/ # DB Models / queries
-│ ├── db/ # DB config and connection pool
-│ ├── middleware/ # Auth / validation middleware
-│ ├── .env # Backend environment variables
-│ └── server.js # Entry point
-│
-├── frontend/ # Angular application
-│ ├── src/
-│ │ └── app/ # Components, services, routing, etc.
-│ ├── angular.json
-│ └── .env # Frontend environment variables (if needed)
-
 ## 🚀 Features
 
 ### Frontend (Angular)
